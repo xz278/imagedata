@@ -11,7 +11,7 @@ fi
 
 if [[ -e "$2" ]]; then
 	echo "		Output csv file name exists. "
-	rm -r "$2"
+	rm "$2"
 	echo "		Old file removed"
 fi
 
@@ -21,20 +21,26 @@ numCategory=$(($numCategory-1))
 echo "		Number of category: $numCategory."
 echo "		Generating category list ... "
 categories=$(ls -l "$1" | rev | cut -d " " -f 1 | rev )
+if [[ -e "categories.csv" ]]; then
+	rm "categories.csv"
+fi
 echo "$categories" >> "categories.csv"
 
 
-cd "$1"
-
-declare -A stats
-
+# navigate to the category folder
+# cd "$1"
+# create an associate array to store the frequency
+# of each category
+# declare -A stats
 
 while read line; do
-	if [[ -d "$line" ]]; then
-		#statements
+	# if the path exists and is a folder
+	if [[ -d "$1$line" ]]; then
+		count="$(ls "$1$line" | wc -w)"
+		stats["$line"]="$count"
+		echo "$line,$count" >> "$2"
 	fi
-done < "$categories.csv"
-
+done < "categories.csv"
 
 
 
