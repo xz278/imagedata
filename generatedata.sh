@@ -43,7 +43,7 @@ while read line; do
 	arr=($types)
 	numOfLabels=$((${#arr[@]}))
 	# echo "$numOfLabels"
-	if [[ "$numOfLabels" -gt 0 ]] || [[ "$types" != "n/a" ]] || [[ "$types" != "n/a" ]]; then
+	if [[ "$numOfLabels" -gt 0 ]]; then
 		# echo "$numOfLabels"
 		for t in "${arr[@]}"; do
 			if [[ "$t" != *"-"* ]]; then
@@ -55,13 +55,10 @@ while read line; do
 				if [[ ! -e "$dest" ]]; then
 					mkdir "$dest"
 				fi
-				cp "$imageFolder$imageName" "$dest" > /dev/null 2>&1 &
-				# cp "$imageFolder$imageName" "$dest" &> /dev/null &
+				cp "$imageFolder$imageName" "$dest"
 			fi
 		done
 	fi
 done < "$1"
-
-echo "Comppleted."
 
 

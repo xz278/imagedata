@@ -1,9 +1,5 @@
-#! /bin/bash
+# /bin/bash
 # get the statistics from the genearted data to a csv file
-# input 1: image data folder
-# imput 2: output cs 
-
-
 if [[ "$#" -ne 2 ]]; then
 	echo "		Please specify the data folder and output csv file name."
 	exit 11
@@ -30,6 +26,13 @@ if [[ -e "categories.csv" ]]; then
 	rm "categories.csv"
 fi
 echo "$categories" >> "categories.csv"
+
+
+# navigate to the category folder
+# cd "$1"
+# create an associate array to store the frequency
+# of each category
+# declare -A stats
 
 while read line; do
 	# if the path exists and is a folder

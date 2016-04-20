@@ -16,15 +16,21 @@ if [[ ! -e "$1" ]] || [[ ! -d "$1" ]]; then
 fi
 
 echo "Executing..."
-if [[ -e "$3" ]] || [[ -d "$3" ]]; then
-	rm -r "$3"
+#if [[ -e "$3" ]] && [[ -d "$3" ]]; then
+#	rm -r "$3"
+#fi
+#mkdir "$3"
+
+if [[ ! -e "$3" ]]; then
+    mkdir "$3"
 fi
-mkdir "$3"
 IFS=","
 while read line; do
 	arr=($line)
-	if [[ "${arr[1]}" -lt "$4" ]]; then
+	if [[ "${arr[1]}" -lt "$4" ]] && [[ -e "$1${arr[0]}" ]]; then
 		mv "$1${arr[0]}" "./$3/${arr[0]}"
+    elif [[ "${#arr[0]}" -lt 3 ]] && [[ -e "$1${arr[0]}" ]]; then
+        mv "$1${arr[0]}" "./$3/${arr[0]}"
 	fi
 done < "$2"
 
